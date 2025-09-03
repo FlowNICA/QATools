@@ -6,8 +6,7 @@
 #include <TH1I.h>
 #include <TH2D.h>
 #include <TProfile.h>
-#include <TProfile2D.h>
-// #include <TProfile3D.h>
+#include <TProfile3D.h>
 #include <TFile.h>
 #include <TStopwatch.h>
 
@@ -16,7 +15,6 @@
 #include <qaEvent.h>
 #include <qaReader_manager.h>
 #include <qaReader_smash_root.h>
-#include <qaReader_epos4_root.h>
 #include <qaReader_mcpico.h>
 #include <Utility.h>
 
@@ -38,17 +36,16 @@ int main(int argc, char **argv)
   {
     std::cerr << "./qaProcess -i input.list -o qa_output.root -format [FORMAT] [OPTIONAL: -config qa.cfg]" << std::endl;
     std::cerr << "Available formats:" << std::endl;
-    std::cerr << "\tmcpico - simple custom ROOT format to store model data" << std::endl;
-    std::cerr << "\tparticle - ROOT format that is used by the SMASH model" << std::endl;
-    std::cerr << "\tepos4root - ROOT format that is used by the EPOS4 model" << std::endl;
+    std::cerr << "\tmcpico   - simple custom ROOT format to store model data." << std::endl;
+    std::cerr << "\tparticle - ROOT format that is used by the SMASH model." << std::endl;
   #ifdef _MCINI_
-    std::cerr << "\tmcini - custom ROOT format to store both initial state and final state (UniGen data format) model data" << std::endl;
+    std::cerr << "\tmcini    - custom ROOT format to store both initial state and final state (UniGen data format) model data. Fully compatible with UniGen format." << std::endl;
   #endif
   #ifdef _PHQMD_
-    std::cerr << "\tphqmd - custom ROOT format to store PHQMD (with MST) model data" << std::endl;
+    std::cerr << "\tphqmd    - custom ROOT format to store PHQMD (with MST) model data." << std::endl;
   #endif
   #ifdef _HSD_ROOT_
-    std::cerr << "\thsd - custom ROOT format to store HSD model data" << std::endl;
+    std::cerr << "\thsd      - custom ROOT format to store HSD model data." << std::endl;
   #endif
     return 1;
   }
@@ -155,186 +152,18 @@ int main(int argc, char **argv)
     if (qaUtility::GetInstance()->Is_v1)
     {
       std::cout << "Is_v1 = " << qaUtility::GetInstance()->Is_v1 << std::endl;
-      std::cout << "Cut_v1_Event_bmin = " << qaUtility::GetInstance()->Cut_v1_Event_bmin << std::endl;
-      std::cout << "Cut_v1_Event_bmax = " << qaUtility::GetInstance()->Cut_v1_Event_bmax << std::endl;
-      std::cout << "Cut_v1_Event_bCent[" << qaUtility::GetInstance()->Cut_v1_Event_bCent.size() << "] = {";
-      for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v1_Event_bCent.size(); i++)
-      {
-        std::cout << qaUtility::GetInstance()->Cut_v1_Event_bCent.at(i);
-        if (i != (int)qaUtility::GetInstance()->Cut_v1_Event_bCent.size() - 1)
-          std::cout << ", ";
-        else
-          std::cout << "};" << std::endl;
-      }
-      std::cout << "Cut_v1_Event_mCent[" << qaUtility::GetInstance()->Cut_v1_Event_mCent.size() << "] = {";
-      for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v1_Event_mCent.size(); i++)
-      {
-        std::cout << (int)qaUtility::GetInstance()->Cut_v1_Event_mCent.at(i);
-        if (i != (int)qaUtility::GetInstance()->Cut_v1_Event_mCent.size() - 1)
-          std::cout << ", ";
-        else
-          std::cout << "};" << std::endl;
-      }
-      std::cout << "Cut_v1_Particle_ptmin = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmin << std::endl;
-      std::cout << "Cut_v1_Particle_ptmax = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmax << std::endl;
-      std::cout << "Cut_v1_Particle_etamin = " << qaUtility::GetInstance()->Cut_v1_Particle_etamin << std::endl;
-      std::cout << "Cut_v1_Particle_etamax = " << qaUtility::GetInstance()->Cut_v1_Particle_etamax << std::endl;
-      std::cout << "Cut_v1_Particle_ymin = " << qaUtility::GetInstance()->Cut_v1_Particle_ymin << std::endl;
-      std::cout << "Cut_v1_Particle_ymax = " << qaUtility::GetInstance()->Cut_v1_Particle_ymax << std::endl;
-      std::cout << "Cut_v1_Particle_ptmin_pi = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmin_pi << std::endl;
-      std::cout << "Cut_v1_Particle_ptmax_pi = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmax_pi << std::endl;
-      std::cout << "Cut_v1_Particle_ymin_pi = " << qaUtility::GetInstance()->Cut_v1_Particle_ymin_pi << std::endl;
-      std::cout << "Cut_v1_Particle_ymax_pi = " << qaUtility::GetInstance()->Cut_v1_Particle_ymax_pi << std::endl;
-      std::cout << "Cut_v1_Particle_ptmin_ka = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmin_ka << std::endl;
-      std::cout << "Cut_v1_Particle_ptmax_ka = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmax_ka << std::endl;
-      std::cout << "Cut_v1_Particle_ymin_ka = " << qaUtility::GetInstance()->Cut_v1_Particle_ymin_ka << std::endl;
-      std::cout << "Cut_v1_Particle_ymax_ka = " << qaUtility::GetInstance()->Cut_v1_Particle_ymax_ka << std::endl;
-      std::cout << "Cut_v1_Particle_ptmin_pr = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmin_pr << std::endl;
-      std::cout << "Cut_v1_Particle_ptmax_pr = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmax_pr << std::endl;
-      std::cout << "Cut_v1_Particle_ymin_pr = " << qaUtility::GetInstance()->Cut_v1_Particle_ymin_pr << std::endl;
-      std::cout << "Cut_v1_Particle_ymax_pr = " << qaUtility::GetInstance()->Cut_v1_Particle_ymax_pr << std::endl;
-      std::cout << "Cut_v1_Particle_ptmin_ne = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmin_ne << std::endl;
-      std::cout << "Cut_v1_Particle_ptmax_ne = " << qaUtility::GetInstance()->Cut_v1_Particle_ptmax_ne << std::endl;
-      std::cout << "Cut_v1_Particle_ymin_ne = " << qaUtility::GetInstance()->Cut_v1_Particle_ymin_ne << std::endl;
-      std::cout << "Cut_v1_Particle_ymax_ne = " << qaUtility::GetInstance()->Cut_v1_Particle_ymax_ne << std::endl;
     }
     if (qaUtility::GetInstance()->Is_v2)
     {
       std::cout << "Is_v2 = " << qaUtility::GetInstance()->Is_v2 << std::endl;
-      std::cout << "Cut_v2_Event_bmin = " << qaUtility::GetInstance()->Cut_v2_Event_bmin << std::endl;
-      std::cout << "Cut_v2_Event_bmax = " << qaUtility::GetInstance()->Cut_v2_Event_bmax << std::endl;
-      std::cout << "Cut_v2_Event_bCent[" << qaUtility::GetInstance()->Cut_v2_Event_bCent.size() << "] = {";
-      for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v2_Event_bCent.size(); i++)
-      {
-        std::cout << qaUtility::GetInstance()->Cut_v2_Event_bCent.at(i);
-        if (i != (int)qaUtility::GetInstance()->Cut_v2_Event_bCent.size() - 1)
-          std::cout << ", ";
-        else
-          std::cout << "};" << std::endl;
-      }
-      std::cout << "Cut_v2_Event_mCent[" << qaUtility::GetInstance()->Cut_v2_Event_mCent.size() << "] = {";
-      for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v2_Event_mCent.size(); i++)
-      {
-        std::cout << (int)qaUtility::GetInstance()->Cut_v2_Event_mCent.at(i);
-        if (i != (int)qaUtility::GetInstance()->Cut_v2_Event_mCent.size() - 1)
-          std::cout << ", ";
-        else
-          std::cout << "};" << std::endl;
-      }
-      std::cout << "Cut_v2_Particle_ptmin = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmin << std::endl;
-      std::cout << "Cut_v2_Particle_ptmax = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmax << std::endl;
-      std::cout << "Cut_v2_Particle_etamin = " << qaUtility::GetInstance()->Cut_v2_Particle_etamin << std::endl;
-      std::cout << "Cut_v2_Particle_etamax = " << qaUtility::GetInstance()->Cut_v2_Particle_etamax << std::endl;
-      std::cout << "Cut_v2_Particle_ymin = " << qaUtility::GetInstance()->Cut_v2_Particle_ymin << std::endl;
-      std::cout << "Cut_v2_Particle_ymax = " << qaUtility::GetInstance()->Cut_v2_Particle_ymax << std::endl;
-      std::cout << "Cut_v2_Particle_ptmin_pi = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmin_pi << std::endl;
-      std::cout << "Cut_v2_Particle_ptmax_pi = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmax_pi << std::endl;
-      std::cout << "Cut_v2_Particle_ymin_pi = " << qaUtility::GetInstance()->Cut_v2_Particle_ymin_pi << std::endl;
-      std::cout << "Cut_v2_Particle_ymax_pi = " << qaUtility::GetInstance()->Cut_v2_Particle_ymax_pi << std::endl;
-      std::cout << "Cut_v2_Particle_ptmin_ka = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmin_ka << std::endl;
-      std::cout << "Cut_v2_Particle_ptmax_ka = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmax_ka << std::endl;
-      std::cout << "Cut_v2_Particle_ymin_ka = " << qaUtility::GetInstance()->Cut_v2_Particle_ymin_ka << std::endl;
-      std::cout << "Cut_v2_Particle_ymax_ka = " << qaUtility::GetInstance()->Cut_v2_Particle_ymax_ka << std::endl;
-      std::cout << "Cut_v2_Particle_ptmin_pr = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmin_pr << std::endl;
-      std::cout << "Cut_v2_Particle_ptmax_pr = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmax_pr << std::endl;
-      std::cout << "Cut_v2_Particle_ymin_pr = " << qaUtility::GetInstance()->Cut_v2_Particle_ymin_pr << std::endl;
-      std::cout << "Cut_v2_Particle_ymax_pr = " << qaUtility::GetInstance()->Cut_v2_Particle_ymax_pr << std::endl;
-      std::cout << "Cut_v2_Particle_ptmin_ne = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmin_ne << std::endl;
-      std::cout << "Cut_v2_Particle_ptmax_ne = " << qaUtility::GetInstance()->Cut_v2_Particle_ptmax_ne << std::endl;
-      std::cout << "Cut_v2_Particle_ymin_ne = " << qaUtility::GetInstance()->Cut_v2_Particle_ymin_ne << std::endl;
-      std::cout << "Cut_v2_Particle_ymax_ne = " << qaUtility::GetInstance()->Cut_v2_Particle_ymax_ne << std::endl;
     }
     if (qaUtility::GetInstance()->Is_v3)
     {
       std::cout << "Is_v3 = " << qaUtility::GetInstance()->Is_v3 << std::endl;
-      std::cout << "Cut_v3_Event_bmin = " << qaUtility::GetInstance()->Cut_v3_Event_bmin << std::endl;
-      std::cout << "Cut_v3_Event_bmax = " << qaUtility::GetInstance()->Cut_v3_Event_bmax << std::endl;
-      std::cout << "Cut_v3_Event_bCent[" << qaUtility::GetInstance()->Cut_v3_Event_bCent.size() << "] = {";
-      for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v3_Event_bCent.size(); i++)
-      {
-        std::cout << qaUtility::GetInstance()->Cut_v3_Event_bCent.at(i);
-        if (i != (int)qaUtility::GetInstance()->Cut_v3_Event_bCent.size() - 1)
-          std::cout << ", ";
-        else
-          std::cout << "};" << std::endl;
-      }
-      std::cout << "Cut_v3_Event_mCent[" << qaUtility::GetInstance()->Cut_v3_Event_mCent.size() << "] = {";
-      for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v3_Event_mCent.size(); i++)
-      {
-        std::cout << (int)qaUtility::GetInstance()->Cut_v3_Event_mCent.at(i);
-        if (i != (int)qaUtility::GetInstance()->Cut_v3_Event_mCent.size() - 1)
-          std::cout << ", ";
-        else
-          std::cout << "};" << std::endl;
-      }
-      std::cout << "Cut_v3_Particle_ptmin = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmin << std::endl;
-      std::cout << "Cut_v3_Particle_ptmax = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmax << std::endl;
-      std::cout << "Cut_v3_Particle_etamin = " << qaUtility::GetInstance()->Cut_v3_Particle_etamin << std::endl;
-      std::cout << "Cut_v3_Particle_etamax = " << qaUtility::GetInstance()->Cut_v3_Particle_etamax << std::endl;
-      std::cout << "Cut_v3_Particle_ymin = " << qaUtility::GetInstance()->Cut_v3_Particle_ymin << std::endl;
-      std::cout << "Cut_v3_Particle_ymax = " << qaUtility::GetInstance()->Cut_v3_Particle_ymax << std::endl;
-      std::cout << "Cut_v3_Particle_ptmin_pi = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmin_pi << std::endl;
-      std::cout << "Cut_v3_Particle_ptmax_pi = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmax_pi << std::endl;
-      std::cout << "Cut_v3_Particle_ymin_pi = " << qaUtility::GetInstance()->Cut_v3_Particle_ymin_pi << std::endl;
-      std::cout << "Cut_v3_Particle_ymax_pi = " << qaUtility::GetInstance()->Cut_v3_Particle_ymax_pi << std::endl;
-      std::cout << "Cut_v3_Particle_ptmin_ka = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmin_ka << std::endl;
-      std::cout << "Cut_v3_Particle_ptmax_ka = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmax_ka << std::endl;
-      std::cout << "Cut_v3_Particle_ymin_ka = " << qaUtility::GetInstance()->Cut_v3_Particle_ymin_ka << std::endl;
-      std::cout << "Cut_v3_Particle_ymax_ka = " << qaUtility::GetInstance()->Cut_v3_Particle_ymax_ka << std::endl;
-      std::cout << "Cut_v3_Particle_ptmin_pr = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmin_pr << std::endl;
-      std::cout << "Cut_v3_Particle_ptmax_pr = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmax_pr << std::endl;
-      std::cout << "Cut_v3_Particle_ymin_pr = " << qaUtility::GetInstance()->Cut_v3_Particle_ymin_pr << std::endl;
-      std::cout << "Cut_v3_Particle_ymax_pr = " << qaUtility::GetInstance()->Cut_v3_Particle_ymax_pr << std::endl;
-      std::cout << "Cut_v3_Particle_ptmin_ne = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmin_ne << std::endl;
-      std::cout << "Cut_v3_Particle_ptmax_ne = " << qaUtility::GetInstance()->Cut_v3_Particle_ptmax_ne << std::endl;
-      std::cout << "Cut_v3_Particle_ymin_ne = " << qaUtility::GetInstance()->Cut_v3_Particle_ymin_ne << std::endl;
-      std::cout << "Cut_v3_Particle_ymax_ne = " << qaUtility::GetInstance()->Cut_v3_Particle_ymax_ne << std::endl;
     }
     if (qaUtility::GetInstance()->Is_v4)
     {
       std::cout << "Is_v4 = " << qaUtility::GetInstance()->Is_v4 << std::endl;
-      std::cout << "Cut_v4_Event_bmin = " << qaUtility::GetInstance()->Cut_v4_Event_bmin << std::endl;
-      std::cout << "Cut_v4_Event_bmax = " << qaUtility::GetInstance()->Cut_v4_Event_bmax << std::endl;
-      std::cout << "Cut_v4_Event_bCent[" << qaUtility::GetInstance()->Cut_v4_Event_bCent.size() << "] = {";
-      for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v4_Event_bCent.size(); i++)
-      {
-        std::cout << qaUtility::GetInstance()->Cut_v4_Event_bCent.at(i);
-        if (i != (int)qaUtility::GetInstance()->Cut_v4_Event_bCent.size() - 1)
-          std::cout << ", ";
-        else
-          std::cout << "};" << std::endl;
-      }
-      std::cout << "Cut_v4_Event_mCent[" << qaUtility::GetInstance()->Cut_v4_Event_mCent.size() << "] = {";
-      for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v4_Event_mCent.size(); i++)
-      {
-        std::cout << (int)qaUtility::GetInstance()->Cut_v4_Event_mCent.at(i);
-        if (i != (int)qaUtility::GetInstance()->Cut_v4_Event_mCent.size() - 1)
-          std::cout << ", ";
-        else
-          std::cout << "};" << std::endl;
-      }
-      std::cout << "Cut_v4_Particle_ptmin = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmin << std::endl;
-      std::cout << "Cut_v4_Particle_ptmax = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmax << std::endl;
-      std::cout << "Cut_v4_Particle_etamin = " << qaUtility::GetInstance()->Cut_v4_Particle_etamin << std::endl;
-      std::cout << "Cut_v4_Particle_etamax = " << qaUtility::GetInstance()->Cut_v4_Particle_etamax << std::endl;
-      std::cout << "Cut_v4_Particle_ymin = " << qaUtility::GetInstance()->Cut_v4_Particle_ymin << std::endl;
-      std::cout << "Cut_v4_Particle_ymax = " << qaUtility::GetInstance()->Cut_v4_Particle_ymax << std::endl;
-      std::cout << "Cut_v4_Particle_ptmin_pi = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmin_pi << std::endl;
-      std::cout << "Cut_v4_Particle_ptmax_pi = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmax_pi << std::endl;
-      std::cout << "Cut_v4_Particle_ymin_pi = " << qaUtility::GetInstance()->Cut_v4_Particle_ymin_pi << std::endl;
-      std::cout << "Cut_v4_Particle_ymax_pi = " << qaUtility::GetInstance()->Cut_v4_Particle_ymax_pi << std::endl;
-      std::cout << "Cut_v4_Particle_ptmin_ka = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmin_ka << std::endl;
-      std::cout << "Cut_v4_Particle_ptmax_ka = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmax_ka << std::endl;
-      std::cout << "Cut_v4_Particle_ymin_ka = " << qaUtility::GetInstance()->Cut_v4_Particle_ymin_ka << std::endl;
-      std::cout << "Cut_v4_Particle_ymax_ka = " << qaUtility::GetInstance()->Cut_v4_Particle_ymax_ka << std::endl;
-      std::cout << "Cut_v4_Particle_ptmin_pr = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmin_pr << std::endl;
-      std::cout << "Cut_v4_Particle_ptmax_pr = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmax_pr << std::endl;
-      std::cout << "Cut_v4_Particle_ymin_pr = " << qaUtility::GetInstance()->Cut_v4_Particle_ymin_pr << std::endl;
-      std::cout << "Cut_v4_Particle_ymax_pr = " << qaUtility::GetInstance()->Cut_v4_Particle_ymax_pr << std::endl;
-      std::cout << "Cut_v4_Particle_ptmin_ne = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmin_ne << std::endl;
-      std::cout << "Cut_v4_Particle_ptmax_ne = " << qaUtility::GetInstance()->Cut_v4_Particle_ptmax_ne << std::endl;
-      std::cout << "Cut_v4_Particle_ymin_ne = " << qaUtility::GetInstance()->Cut_v4_Particle_ymin_ne << std::endl;
-      std::cout << "Cut_v4_Particle_ymax_ne = " << qaUtility::GetInstance()->Cut_v4_Particle_ymax_ne << std::endl;
     }
     std::cout << std::endl;
   }
@@ -407,60 +236,20 @@ int main(int argc, char **argv)
   TH1D *h_refmult_Particle_PID_z[qaUtility::GetInstance()->npid];
 
   TH2D *h2_v1_Particle_pteta = new TH2D("h2_v1_Particle_pteta", "dN/dp_{T}d#eta v1;#eta;p_{T}, GeV/c;dN/dp_{T}d#eta", 2000, -10., 10., 800, 0., 8.);
-  TH2D *h2_v1_Event_bCent_b_Mult[qaUtility::GetInstance()->maxCentBins];
-  TH2D *h2_v1_Event_mCent_b_Mult[qaUtility::GetInstance()->maxCentBins];
-  // TProfile3D *p3_v1_PID_b_pt_y[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v1_PID_b_pt[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v1_PID_b_y[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v1_PID_y_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v1_PID_M_pt[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v1_PID_M_y[qaUtility::GetInstance()->npid];
-  TProfile *p_v1_PID_bCent_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v1_PID_bCent_y[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v1_PID_mCent_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v1_PID_mCent_y[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
+  TProfile3D *p3_v1_PID_b_pt_y[qaUtility::GetInstance()->npid];
+  TProfile3D *p3_v1_PID_M_pt_y[qaUtility::GetInstance()->npid];
 
   TH2D *h2_v2_Particle_pteta = new TH2D("h2_v2_Particle_pteta", "dN/dp_{T}d#eta v2;#eta;p_{T}, GeV/c;dN/dp_{T}d#eta", 2000, -10., 10., 800, 0., 8.);
-  TH2D *h2_v2_Event_bCent_b_Mult[qaUtility::GetInstance()->maxCentBins];
-  TH2D *h2_v2_Event_mCent_b_Mult[qaUtility::GetInstance()->maxCentBins];
-  // TProfile3D *p3_v2_PID_b_pt_y[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v2_PID_b_pt[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v2_PID_b_y[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v2_PID_y_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v2_PID_M_pt[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v2_PID_M_y[qaUtility::GetInstance()->npid];
-  TProfile *p_v2_PID_bCent_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v2_PID_bCent_y[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v2_PID_mCent_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v2_PID_mCent_y[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
+  TProfile3D *p3_v2_PID_b_pt_y[qaUtility::GetInstance()->npid];
+  TProfile3D *p3_v2_PID_M_pt_y[qaUtility::GetInstance()->npid];
 
   TH2D *h2_v3_Particle_pteta = new TH2D("h2_v3_Particle_pteta", "dN/dp_{T}d#eta v3;#eta;p_{T}, GeV/c;dN/dp_{T}d#eta", 2000, -10., 10., 800, 0., 8.);
-  TH2D *h2_v3_Event_bCent_b_Mult[qaUtility::GetInstance()->maxCentBins];
-  TH2D *h2_v3_Event_mCent_b_Mult[qaUtility::GetInstance()->maxCentBins];
-  // TProfile3D *p3_v3_PID_b_pt_y[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v3_PID_b_pt[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v3_PID_b_y[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v3_PID_y_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v3_PID_M_pt[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v3_PID_M_y[qaUtility::GetInstance()->npid];
-  TProfile *p_v3_PID_bCent_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v3_PID_bCent_y[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v3_PID_mCent_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v3_PID_mCent_y[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
+  TProfile3D *p3_v3_PID_b_pt_y[qaUtility::GetInstance()->npid];
+  TProfile3D *p3_v3_PID_M_pt_y[qaUtility::GetInstance()->npid];
 
   TH2D *h2_v4_Particle_pteta = new TH2D("h2_v4_Particle_pteta", "dN/dp_{T}d#eta v4;#eta;p_{T}, GeV/c;dN/dp_{T}d#eta", 2000, -10., 10., 800, 0., 8.);
-  TH2D *h2_v4_Event_bCent_b_Mult[qaUtility::GetInstance()->maxCentBins];
-  TH2D *h2_v4_Event_mCent_b_Mult[qaUtility::GetInstance()->maxCentBins];
-  // TProfile3D *p3_v4_PID_b_pt_y[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v4_PID_b_pt[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v4_PID_b_y[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v4_PID_y_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v4_PID_M_pt[qaUtility::GetInstance()->npid];
-  TProfile2D *p2_v4_PID_M_y[qaUtility::GetInstance()->npid];
-  TProfile *p_v4_PID_bCent_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v4_PID_bCent_y[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v4_PID_mCent_pt[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
-  TProfile *p_v4_PID_mCent_y[qaUtility::GetInstance()->maxCentBins][qaUtility::GetInstance()->npid];
+  TProfile3D *p3_v4_PID_b_pt_y[qaUtility::GetInstance()->npid];
+  TProfile3D *p3_v4_PID_M_pt_y[qaUtility::GetInstance()->npid];
 
   for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
   {
@@ -488,74 +277,17 @@ int main(int argc, char **argv)
     h_refmult_Particle_PID_y[i] = new TH1D(Form("h_refmult_Particle_PID_y_%i", i), Form("h_refmult_Particle_PID_y_%i;y, fm; dN/dy", i), 800, -8., 8.);
     h_refmult_Particle_PID_z[i] = new TH1D(Form("h_refmult_Particle_PID_z_%i", i), Form("h_refmult_Particle_PID_z_%i;z, fm; dN/dz", i), 800, -8., 8.);
 
-    // p3_v1_PID_b_pt_y[i] = new TProfile3D(Form("p3_v1_PID_b_pt_y_%i", i), Form("p3_v1_PID_b_pt_y_%i;p_{T}, GeV/c;y;b, fm;v_{1}", i), 100, 0., 5., 400, -10., 10., 200, 0., 20.);
-    p2_v1_PID_b_pt[i] = new TProfile2D(Form("p2_v1_PID_b_pt_%i", i), Form("p2_v1_PID_b_pt_%i;p_{T}, GeV/c;b, fm;v_{1}", i), 100, 0., 5., 200, 0., 20.);
-    p2_v1_PID_b_y[i] = new TProfile2D(Form("p2_v1_PID_b_y_%i", i), Form("p2_v1_PID_b_y_%i;y;b, fm;v_{1}", i), 400, -10., 10., 200, 0., 20.);
-    p2_v1_PID_M_pt[i] = new TProfile2D(Form("p2_v1_PID_M_pt_%i", i), Form("p2_v1_PID_M_pt_%i;p_{T}, GeV/c;b, fm;v_{1}", i), 100, 0., 5., 2500, 0., 2500.);
-    p2_v1_PID_M_y[i] = new TProfile2D(Form("p2_v1_PID_M_y_%i", i), Form("p2_v1_PID_M_y_%i;y;b, fm;v_{1}", i), 400, -10., 10., 2500, 0., 2500.);
+    p3_v1_PID_b_pt_y[i] = new TProfile3D(Form("p3_v1_PID_b_pt_y_%i", i), Form("p3_v1_PID_b_pt_y_%i;p_{T}, GeV/c;y;b, fm;v_{1}", i), 300, 0., 3., 100, -5., 5., 200, 0., 20.);
+    p3_v1_PID_M_pt_y[i] = new TProfile3D(Form("p3_v1_PID_M_pt_y_%i", i), Form("p3_v1_PID_M_pt_y_%i;p_{T}, GeV/c;y;N_{ch};v_{1}", i), 300, 0., 3., 100, -5., 5., 1000, 0., 1000.);
 
-    // p3_v2_PID_b_pt_y[i] = new TProfile3D(Form("p3_v2_PID_b_pt_y_%i", i), Form("p3_v2_PID_b_pt_y_%i;p_{T}, GeV/c;y;b, fm;v_{2}", i), 100, 0., 5., 400, -10., 10., 200, 0., 20.);
-    p2_v2_PID_b_pt[i] = new TProfile2D(Form("p2_v2_PID_b_pt_%i", i), Form("p2_v2_PID_b_pt_%i;p_{T}, GeV/c;b, fm;v_{2}", i), 100, 0., 5., 200, 0., 20.);
-    p2_v2_PID_b_y[i] = new TProfile2D(Form("p2_v2_PID_b_y_%i", i), Form("p2_v2_PID_b_y_%i;y;b, fm;v_{2}", i), 400, -10., 10., 200, 0., 20.);
-    p2_v2_PID_M_pt[i] = new TProfile2D(Form("p2_v2_PID_M_pt_%i", i), Form("p2_v2_PID_M_pt_%i;p_{T}, GeV/c;b, fm;v_{2}", i), 100, 0., 5., 2500, 0., 2500.);
-    p2_v2_PID_M_y[i] = new TProfile2D(Form("p2_v2_PID_M_y_%i", i), Form("p2_v2_PID_M_y_%i;y;b, fm;v_{2}", i), 400, -10., 10., 2500, 0., 2500.);
+    p3_v2_PID_b_pt_y[i] = new TProfile3D(Form("p3_v2_PID_b_pt_y_%i", i), Form("p3_v2_PID_b_pt_y_%i;p_{T}, GeV/c;y;b, fm;v_{2}", i), 300, 0., 3., 100, -5., 5., 200, 0., 20.);
+    p3_v2_PID_M_pt_y[i] = new TProfile3D(Form("p3_v2_PID_M_pt_y_%i", i), Form("p3_v2_PID_M_pt_y_%i;p_{T}, GeV/c;y;N_{ch};v_{2}", i), 300, 0., 3., 100, -5., 5., 1000, 0., 1000.);
 
-    // p3_v3_PID_b_pt_y[i] = new TProfile3D(Form("p3_v3_PID_b_pt_y_%i", i), Form("p3_v3_PID_b_pt_y_%i;p_{T}, GeV/c;y;b, fm;v_{3}", i), 100, 0., 5., 400, -10., 10., 200, 0., 20.);
-    p2_v3_PID_b_pt[i] = new TProfile2D(Form("p2_v3_PID_b_pt_%i", i), Form("p2_v3_PID_b_pt_%i;p_{T}, GeV/c;b, fm;v_{2}", i), 100, 0., 5., 200, 0., 20.);
-    p2_v3_PID_b_y[i] = new TProfile2D(Form("p2_v3_PID_b_y_%i", i), Form("p2_v3_PID_b_y_%i;y;b, fm;v_{2}", i), 400, -10., 10., 200, 0., 20.);
-    p2_v3_PID_M_pt[i] = new TProfile2D(Form("p2_v3_PID_M_pt_%i", i), Form("p2_v3_PID_M_pt_%i;p_{T}, GeV/c;b, fm;v_{2}", i), 100, 0., 5., 2500, 0., 2500.);
-    p2_v3_PID_M_y[i] = new TProfile2D(Form("p2_v3_PID_M_y_%i", i), Form("p2_v3_PID_M_y_%i;y;b, fm;v_{2}", i), 400, -10., 10., 2500, 0., 2500.);
+    p3_v3_PID_b_pt_y[i] = new TProfile3D(Form("p3_v3_PID_b_pt_y_%i", i), Form("p3_v3_PID_b_pt_y_%i;p_{T}, GeV/c;y;b, fm;v_{3}", i), 300, 0., 3., 100, -5., 5., 200, 0., 20.);
+    p3_v3_PID_M_pt_y[i] = new TProfile3D(Form("p3_v3_PID_M_pt_y_%i", i), Form("p3_v3_PID_M_pt_y_%i;p_{T}, GeV/c;y;N_{ch};v_{3}", i), 300, 0., 3., 100, -5., 5., 1000, 0., 1000.);
 
-    // p3_v4_PID_b_pt_y[i] = new TProfile3D(Form("p3_v4_PID_b_pt_y_%i", i), Form("p3_v4_PID_b_pt_y_%i;p_{T}, GeV/c;y;b, fm;v_{4}", i), 100, 0., 5., 400, -10., 10., 200, 0., 20.);
-    p2_v4_PID_b_pt[i] = new TProfile2D(Form("p2_v4_PID_b_pt_%i", i), Form("p2_v4_PID_b_pt_%i;p_{T}, GeV/c;b, fm;v_{2}", i), 100, 0., 5., 200, 0., 20.);
-    p2_v4_PID_b_y[i] = new TProfile2D(Form("p2_v4_PID_b_y_%i", i), Form("p2_v4_PID_b_y_%i;y;b, fm;v_{2}", i), 400, -10., 10., 200, 0., 20.);
-    p2_v4_PID_M_pt[i] = new TProfile2D(Form("p2_v4_PID_M_pt_%i", i), Form("p2_v4_PID_M_pt_%i;p_{T}, GeV/c;b, fm;v_{2}", i), 100, 0., 5., 2500, 0., 2500.);
-    p2_v4_PID_M_y[i] = new TProfile2D(Form("p2_v4_PID_M_y_%i", i), Form("p2_v4_PID_M_y_%i;y;b, fm;v_{2}", i), 400, -10., 10., 2500, 0., 2500.);
-  }
-  for (int i = 0; i < qaUtility::GetInstance()->maxCentBins; i++)
-  {
-    h2_v1_Event_bCent_b_Mult[i] = new TH2D(Form("h2_v1_Event_bCent_b_Mult_%i", i), Form("h2_v1_Event_bCent_b_Mult_%i;N_{particles};b, fm;", i), 2500, 0, 2500, 200, 0., 20.);
-    h2_v1_Event_mCent_b_Mult[i] = new TH2D(Form("h2_v1_Event_mCent_b_Mult_%i", i), Form("h2_v1_Event_mCent_b_Mult_%i;N_{particles};b, fm;", i), 2500, 0, 2500, 200, 0., 20.);
-
-    h2_v2_Event_bCent_b_Mult[i] = new TH2D(Form("h2_v2_Event_bCent_b_Mult_%i", i), Form("h2_v2_Event_bCent_b_Mult_%i;N_{particles};b, fm;", i), 2500, 0, 2500, 200, 0., 20.);
-    h2_v2_Event_mCent_b_Mult[i] = new TH2D(Form("h2_v2_Event_mCent_b_Mult_%i", i), Form("h2_v2_Event_mCent_b_Mult_%i;N_{particles};b, fm;", i), 2500, 0, 2500, 200, 0., 20.);
-
-    h2_v3_Event_bCent_b_Mult[i] = new TH2D(Form("h2_v3_Event_bCent_b_Mult_%i", i), Form("h2_v3_Event_bCent_b_Mult_%i;N_{particles};b, fm;", i), 2500, 0, 2500, 200, 0., 20.);
-    h2_v3_Event_mCent_b_Mult[i] = new TH2D(Form("h2_v3_Event_mCent_b_Mult_%i", i), Form("h2_v3_Event_mCent_b_Mult_%i;N_{particles};b, fm;", i), 2500, 0, 2500, 200, 0., 20.);
-
-    h2_v4_Event_bCent_b_Mult[i] = new TH2D(Form("h2_v4_Event_bCent_b_Mult_%i", i), Form("h2_v4_Event_bCent_b_Mult_%i;N_{particles};b, fm;", i), 2500, 0, 2500, 200, 0., 20.);
-    h2_v4_Event_mCent_b_Mult[i] = new TH2D(Form("h2_v4_Event_mCent_b_Mult_%i", i), Form("h2_v4_Event_mCent_b_Mult_%i;N_{particles};b, fm;", i), 2500, 0, 2500, 200, 0., 20.);
-
-    for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-    {
-      p2_v1_PID_y_pt[i][j] = new TProfile2D(Form("p2_v1_PID_y_pt_%i_%i", i, j), Form("p2_v1_PID_y_pt_%i_%i;p_{T}, GeV/c;y;v_{1}", i, j), 100, 0., 5., 800, -10., 10.);
-      p_v1_PID_bCent_pt[i][j] = new TProfile(Form("p_v1_PID_bCent_pt_%i_%i", i, j), Form("p_v1_PID_bCent_pt_%i_%i;p_{T}, GeV/c;v_{1}", i, j), 100, 0., 5.);
-      p_v1_PID_bCent_y[i][j] = new TProfile(Form("p_v1_PID_bCent_y_%i_%i", i, j), Form("p_v1_PID_bCent_y_%i_%i;y;v_{1}", i, j), 400, -10., 10.);
-
-      p2_v2_PID_y_pt[i][j] = new TProfile2D(Form("p2_v2_PID_y_pt_%i_%i", i, j), Form("p2_v2_PID_y_pt_%i_%i;p_{T}, GeV/c;y;v_{2}", i, j), 100, 0., 5., 800, -10., 10.);
-      p_v2_PID_bCent_pt[i][j] = new TProfile(Form("p_v2_PID_bCent_pt_%i_%i", i, j), Form("p_v2_PID_bCent_pt_%i_%i;p_{T}, GeV/c;v_{2}", i, j), 100, 0., 5.);
-      p_v2_PID_bCent_y[i][j] = new TProfile(Form("p_v2_PID_bCent_y_%i_%i", i, j), Form("p_v2_PID_bCent_y_%i_%i;y;v_{2}", i, j), 400, -10., 10.);
-
-      p2_v3_PID_y_pt[i][j] = new TProfile2D(Form("p2_v3_PID_y_pt_%i_%i", i, j), Form("p2_v3_PID_y_pt_%i_%i;p_{T}, GeV/c;y;v_{3}", i, j), 100, 0., 5., 800, -10., 10.);
-      p_v3_PID_bCent_pt[i][j] = new TProfile(Form("p_v3_PID_bCent_pt_%i_%i", i, j), Form("p_v3_PID_bCent_pt_%i_%i;p_{T}, GeV/c;v_{2}", i, j), 100, 0., 5.);
-      p_v3_PID_bCent_y[i][j] = new TProfile(Form("p_v3_PID_bCent_y_%i_%i", i, j), Form("p_v3_PID_bCent_y_%i_%i;y;v_{2}", i, j), 400, -10., 10.);
-
-      p2_v4_PID_y_pt[i][j] = new TProfile2D(Form("p2_v4_PID_y_pt_%i_%i", i, j), Form("p2_v4_PID_y_pt_%i_%i;p_{T}, GeV/c;y;v_{4}", i, j), 100, 0., 5., 800, -10., 10.);
-      p_v4_PID_bCent_pt[i][j] = new TProfile(Form("p_v4_PID_bCent_pt_%i_%i", i, j), Form("p_v4_PID_bCent_pt_%i_%i;p_{T}, GeV/c;v_{2}", i, j), 100, 0., 5.);
-      p_v4_PID_bCent_y[i][j] = new TProfile(Form("p_v4_PID_bCent_y_%i_%i", i, j), Form("p_v4_PID_bCent_y_%i_%i;y;v_{2}", i, j), 400, -10., 10.);
-
-      p_v1_PID_mCent_pt[i][j] = new TProfile(Form("p_v1_PID_mCent_pt_%i_%i", i, j), Form("p_v1_PID_mCent_pt_%i_%i;p_{T}, GeV/c;v_{1}", i, j), 100, 0., 5.);
-      p_v1_PID_mCent_y[i][j] = new TProfile(Form("p_v1_PID_mCent_y_%i_%i", i, j), Form("p_v1_PID_mCent_y_%i_%i;y;v_{1}", i, j), 400, -10., 10.);
-
-      p_v2_PID_mCent_pt[i][j] = new TProfile(Form("p_v2_PID_mCent_pt_%i_%i", i, j), Form("p_v2_PID_mCent_pt_%i_%i;p_{T}, GeV/c;v_{2}", i, j), 100, 0., 5.);
-      p_v2_PID_mCent_y[i][j] = new TProfile(Form("p_v2_PID_mCent_y_%i_%i", i, j), Form("p_v2_PID_mCent_y_%i_%i;y;v_{2}", i, j), 400, -10., 10.);
-
-      p_v3_PID_mCent_pt[i][j] = new TProfile(Form("p_v3_PID_mCent_pt_%i_%i", i, j), Form("p_v3_PID_mCent_pt_%i_%i;p_{T}, GeV/c;v_{2}", i, j), 100, 0., 5.);
-      p_v3_PID_mCent_y[i][j] = new TProfile(Form("p_v3_PID_mCent_y_%i_%i", i, j), Form("p_v3_PID_mCent_y_%i_%i;y;v_{2}", i, j), 400, -10., 10.);
-
-      p_v4_PID_mCent_pt[i][j] = new TProfile(Form("p_v4_PID_mCent_pt_%i_%i", i, j), Form("p_v4_PID_mCent_pt_%i_%i;p_{T}, GeV/c;v_{2}", i, j), 100, 0., 5.);
-      p_v4_PID_mCent_y[i][j] = new TProfile(Form("p_v4_PID_mCent_y_%i_%i", i, j), Form("p_v4_PID_mCent_y_%i_%i;y;v_{2}", i, j), 400, -10., 10.);
-    }
+    p3_v4_PID_b_pt_y[i] = new TProfile3D(Form("p3_v4_PID_b_pt_y_%i", i), Form("p3_v4_PID_b_pt_y_%i;p_{T}, GeV/c;y;b, fm;v_{4}", i), 300, 0., 3., 100, -5., 5., 200, 0., 20.);
+    p3_v4_PID_M_pt_y[i] = new TProfile3D(Form("p3_v4_PID_M_pt_y_%i", i), Form("p3_v4_PID_M_pt_y_%i;p_{T}, GeV/c;y;N_{ch};v_{4}", i), 300, 0., 3., 100, -5., 5., 1000, 0., 1000.);
   }
 
   qaReader_manager *readerManager;
@@ -585,10 +317,6 @@ int main(int argc, char **argv)
   {
     readerManager = new qaReader_smash_root();
   }
-  if (qaUtility::GetInstance()->format == "epos4root")
-  {
-    readerManager = new qaReader_epos4_root();
-  }
 
   if (!readerManager)
   {
@@ -614,7 +342,7 @@ int main(int argc, char **argv)
   Long64_t Minbias_counter = 0;
   Int_t ipid;
   Double_t v1, v2, v3, v4, y;
-  Int_t eta_w, centBinB, centBinM;
+  // Int_t eta_w;
 
   std::vector<qaParticleLight> v_particles_v1;
   std::vector<qaParticleLight> v_particles_v2;
@@ -624,7 +352,7 @@ int main(int argc, char **argv)
 
   while (Minbias_counter < Nentries)
   {
-    //if (Minbias_counter % 1000 == 0)
+    if (Minbias_counter % 1000 == 0)
       std::cout << "Event [" << Minbias_counter << "/" << Nentries << "]" << std::endl;
 
     event = (qaEvent *)readerManager->ReadEvent(Absolute_counter);
@@ -768,9 +496,7 @@ int main(int argc, char **argv)
         }
       }
 
-      if (qaUtility::GetInstance()->Cut_Event_v1(event) &&
-          qaUtility::GetInstance()->Cut_Particle_v1_acceptance(particle) &&
-          qaUtility::GetInstance()->Is_v1 == 1)
+      if (qaUtility::GetInstance()->Is_v1 == 1)
       {
         h2_v1_Particle_pteta->Fill(particle->GetEta(), particle->GetPt());
         ipid = qaUtility::GetInstance()->GetPdgId(particle->GetPdg());
@@ -781,9 +507,7 @@ int main(int argc, char **argv)
         }
       }
 
-      if (qaUtility::GetInstance()->Cut_Event_v2(event) &&
-          qaUtility::GetInstance()->Cut_Particle_v2_acceptance(particle) &&
-          qaUtility::GetInstance()->Is_v2 == 1)
+      if (qaUtility::GetInstance()->Is_v2 == 1)
       {
         h2_v2_Particle_pteta->Fill(particle->GetEta(), particle->GetPt());
         ipid = qaUtility::GetInstance()->GetPdgId(particle->GetPdg());
@@ -794,9 +518,7 @@ int main(int argc, char **argv)
         }
       }
 
-      if (qaUtility::GetInstance()->Cut_Event_v3(event) &&
-          qaUtility::GetInstance()->Cut_Particle_v3_acceptance(particle) &&
-          qaUtility::GetInstance()->Is_v3 == 1)
+      if (qaUtility::GetInstance()->Is_v3 == 1)
       {
         h2_v3_Particle_pteta->Fill(particle->GetEta(), particle->GetPt());
         ipid = qaUtility::GetInstance()->GetPdgId(particle->GetPdg());
@@ -807,9 +529,7 @@ int main(int argc, char **argv)
         }
       }
 
-      if (qaUtility::GetInstance()->Cut_Event_v4(event) &&
-          qaUtility::GetInstance()->Cut_Particle_v4_acceptance(particle) &&
-          qaUtility::GetInstance()->Is_v4 == 1)
+      if (qaUtility::GetInstance()->Is_v4 == 1)
       {
         h2_v4_Particle_pteta->Fill(particle->GetEta(), particle->GetPt());
         ipid = qaUtility::GetInstance()->GetPdgId(particle->GetPdg());
@@ -824,139 +544,51 @@ int main(int argc, char **argv)
     }
 
     // Loop over v1-related particles
-    centBinB = qaUtility::GetInstance()->GetCentralityBin(event->GetB(), qaUtility::GetInstance()->Cut_v1_Event_bCent);
-    centBinM = qaUtility::GetInstance()->GetCentMultBin(Ncounter_refmult, qaUtility::GetInstance()->Cut_v1_Event_mCent);
-    if (centBinB != -1) h2_v1_Event_bCent_b_Mult[centBinB]->Fill(Ncounter_refmult, event->GetB());
-    if (centBinM != -1) h2_v1_Event_mCent_b_Mult[centBinM]->Fill(Ncounter_refmult, event->GetB());
     if (qaUtility::GetInstance()->Is_v1 == 1)
     {
       for (const auto &lparticle : v_particles_v1)
       {
         v1 = TMath::Cos(1. * (lparticle.GetPhi() - event->GetPhiRP()));
-        eta_w = 1; //(particle->GetEta() >= 0.) ? 1 : -1;
+        // eta_w = 1; //(particle->GetEta() >= 0.) ? 1 : -1;
         ipid = qaUtility::GetInstance()->GetPdgId(lparticle.GetPdg());
-        // if (ipid != -1) p3_v1_PID_b_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), event->GetB(), v1);
-        if (ipid != -1 && centBinB != -1) p2_v1_PID_y_pt[centBinB][ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), v1);
-        if (qaUtility::GetInstance()->Cut_Particle_v1_PID_pt(lparticle, ipid))
-        {
-          p2_v1_PID_b_pt[ipid]->Fill(lparticle.GetPt(), event->GetB(), v1 * eta_w);
-          p2_v1_PID_M_pt[ipid]->Fill(lparticle.GetPt(), Ncounter_refmult, v1 * eta_w);
-          if (centBinB != -1)
-            p_v1_PID_bCent_pt[centBinB][ipid]->Fill(lparticle.GetPt(), v1 * eta_w);
-          if (centBinM != -1)
-            p_v1_PID_mCent_pt[centBinM][ipid]->Fill(lparticle.GetPt(), v1 * eta_w);
-        }
-        if (qaUtility::GetInstance()->Cut_Particle_v1_PID_y(lparticle, ipid))
-        {
-          p2_v1_PID_b_y[ipid]->Fill(lparticle.GetRapidity(), event->GetB(), v1);
-          p2_v1_PID_M_y[ipid]->Fill(lparticle.GetRapidity(), Ncounter_refmult, v1);
-          if (centBinB != -1)
-            p_v1_PID_bCent_y[centBinB][ipid]->Fill(lparticle.GetRapidity(), v1);
-          if (centBinM != -1)
-            p_v1_PID_mCent_y[centBinM][ipid]->Fill(lparticle.GetRapidity(), v1);
-        }
+        if (ipid != -1) p3_v1_PID_b_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), event->GetB(), v1);
+        if (ipid != -1) p3_v1_PID_M_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), Ncounter_refmult, v1);
       }
     }
 
     // Loop over v2-related particles
-    centBinB = qaUtility::GetInstance()->GetCentralityBin(event->GetB(), qaUtility::GetInstance()->Cut_v2_Event_bCent);
-    centBinM = qaUtility::GetInstance()->GetCentMultBin(Ncounter_refmult, qaUtility::GetInstance()->Cut_v2_Event_mCent);
-    if (centBinB != -1) h2_v2_Event_bCent_b_Mult[centBinB]->Fill(Ncounter_refmult, event->GetB());
-    if (centBinM != -1) h2_v2_Event_mCent_b_Mult[centBinM]->Fill(Ncounter_refmult, event->GetB());
     if (qaUtility::GetInstance()->Is_v2 == 1)
     {
       for (const auto &lparticle : v_particles_v2)
       {
         v2 = TMath::Cos(2. * (lparticle.GetPhi() - event->GetPhiRP()));
         ipid = qaUtility::GetInstance()->GetPdgId(lparticle.GetPdg());
-        // if (ipid != -1) p3_v2_PID_b_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), event->GetB(), v2);
-        if (ipid != -1 && centBinB != -1) p2_v2_PID_y_pt[centBinB][ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), v2);
-        if (qaUtility::GetInstance()->Cut_Particle_v2_PID_pt(lparticle, ipid))
-        {
-          p2_v2_PID_b_pt[ipid]->Fill(lparticle.GetPt(), event->GetB(), v2);
-          p2_v2_PID_M_pt[ipid]->Fill(lparticle.GetPt(), Ncounter_refmult, v2);
-          if (centBinB != -1)
-            p_v2_PID_bCent_pt[centBinB][ipid]->Fill(lparticle.GetPt(), v2);
-          if (centBinM != -1)
-            p_v2_PID_mCent_pt[centBinM][ipid]->Fill(lparticle.GetPt(), v2);
-        }
-        if (qaUtility::GetInstance()->Cut_Particle_v2_PID_y(lparticle, ipid))
-        {
-          p2_v2_PID_b_y[ipid]->Fill(lparticle.GetRapidity(), event->GetB(), v2);
-          p2_v2_PID_M_y[ipid]->Fill(lparticle.GetRapidity(), Ncounter_refmult, v2);
-          if (centBinB != -1)
-            p_v2_PID_bCent_y[centBinB][ipid]->Fill(lparticle.GetRapidity(), v2);
-          if (centBinM != -1)
-            p_v2_PID_mCent_y[centBinM][ipid]->Fill(lparticle.GetRapidity(), v2);
-        }
+        if (ipid != -1) p3_v2_PID_b_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), event->GetB(), v2);
+        if (ipid != -1) p3_v2_PID_M_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), Ncounter_refmult, v2);
       }
     }
 
     // Loop over v3-related particles
-    centBinB = qaUtility::GetInstance()->GetCentralityBin(event->GetB(), qaUtility::GetInstance()->Cut_v3_Event_bCent);
-    centBinM = qaUtility::GetInstance()->GetCentMultBin(Ncounter_refmult, qaUtility::GetInstance()->Cut_v3_Event_mCent);
-    if (centBinB != -1) h2_v3_Event_bCent_b_Mult[centBinB]->Fill(Ncounter_refmult, event->GetB());
-    if (centBinM != -1) h2_v3_Event_mCent_b_Mult[centBinM]->Fill(Ncounter_refmult, event->GetB());
     if (qaUtility::GetInstance()->Is_v3 == 1)
     {
       for (const auto &lparticle : v_particles_v3)
       {
         v3 = TMath::Cos(3. * (lparticle.GetPhi() - event->GetPhiRP()));
         ipid = qaUtility::GetInstance()->GetPdgId(lparticle.GetPdg());
-        // if (ipid != -1) p3_v3_PID_b_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), event->GetB(), v3);
-        if (ipid != -1 && centBinB != -1) p2_v3_PID_y_pt[centBinB][ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), v3);
-        if (qaUtility::GetInstance()->Cut_Particle_v3_PID_pt(lparticle, ipid))
-        {
-          p2_v3_PID_b_pt[ipid]->Fill(lparticle.GetPt(), event->GetB(), v3);
-          p2_v3_PID_M_pt[ipid]->Fill(lparticle.GetPt(), Ncounter_refmult, v3);
-          if (centBinB != -1)
-            p_v3_PID_bCent_pt[centBinB][ipid]->Fill(lparticle.GetPt(), v3);
-          if (centBinM != -1)
-            p_v3_PID_mCent_pt[centBinM][ipid]->Fill(lparticle.GetPt(), v3);
-        }
-        if (qaUtility::GetInstance()->Cut_Particle_v3_PID_y(lparticle, ipid))
-        {
-          p2_v3_PID_b_y[ipid]->Fill(lparticle.GetRapidity(), event->GetB(), v3);
-          p2_v3_PID_M_y[ipid]->Fill(lparticle.GetRapidity(), Ncounter_refmult, v3);
-          if (centBinB != -1)
-            p_v3_PID_bCent_y[centBinB][ipid]->Fill(lparticle.GetRapidity(), v3);
-          if (centBinM != -1)
-            p_v3_PID_mCent_y[centBinM][ipid]->Fill(lparticle.GetRapidity(), v3);
-        }
+        if (ipid != -1) p3_v3_PID_b_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), event->GetB(), v3);
+        if (ipid != -1) p3_v3_PID_M_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), Ncounter_refmult, v3);
       }
     }
 
     // Loop over v4-related particles
-    centBinB = qaUtility::GetInstance()->GetCentralityBin(event->GetB(), qaUtility::GetInstance()->Cut_v4_Event_bCent);
-    centBinM = qaUtility::GetInstance()->GetCentMultBin(Ncounter_refmult, qaUtility::GetInstance()->Cut_v4_Event_mCent);
-    if (centBinB != -1) h2_v4_Event_bCent_b_Mult[centBinB]->Fill(Ncounter_refmult, event->GetB());
-    if (centBinM != -1) h2_v4_Event_mCent_b_Mult[centBinM]->Fill(Ncounter_refmult, event->GetB());
     if (qaUtility::GetInstance()->Is_v4 == 1)
     {
       for (const auto &lparticle : v_particles_v4)
       {
         v4 = TMath::Cos(4. * (lparticle.GetPhi() - event->GetPhiRP()));
         ipid = qaUtility::GetInstance()->GetPdgId(lparticle.GetPdg());
-        // if (ipid != -1) p3_v4_PID_b_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), event->GetB(), v4);
-        if (ipid != -1 && centBinB != -1) p2_v4_PID_y_pt[centBinB][ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), v4);
-        if (qaUtility::GetInstance()->Cut_Particle_v4_PID_pt(lparticle, ipid))
-        {
-          p2_v4_PID_b_pt[ipid]->Fill(lparticle.GetPt(), event->GetB(), v4);
-          p2_v4_PID_M_pt[ipid]->Fill(lparticle.GetPt(), Ncounter_refmult, v4);
-          if (centBinB != -1)
-            p_v4_PID_bCent_pt[centBinB][ipid]->Fill(lparticle.GetPt(), v4);
-          if (centBinM != -1)
-            p_v4_PID_mCent_pt[centBinM][ipid]->Fill(lparticle.GetPt(), v4);
-        }
-        if (qaUtility::GetInstance()->Cut_Particle_v4_PID_y(lparticle, ipid))
-        {
-          p2_v4_PID_b_y[ipid]->Fill(lparticle.GetRapidity(), event->GetB(), v4);
-          p2_v4_PID_M_y[ipid]->Fill(lparticle.GetRapidity(), Ncounter_refmult, v4);
-          if (centBinB != -1)
-            p_v4_PID_bCent_y[centBinB][ipid]->Fill(lparticle.GetRapidity(), v4);
-          if (centBinM != -1)
-            p_v4_PID_mCent_y[centBinM][ipid]->Fill(lparticle.GetRapidity(), v4);
-        }
+        if (ipid != -1) p3_v4_PID_b_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), event->GetB(), v4);
+        if (ipid != -1) p3_v4_PID_M_pt_y[ipid]->Fill(lparticle.GetPt(), lparticle.GetRapidity(), Ncounter_refmult, v4);
       }
     }
 
@@ -1001,6 +633,7 @@ int main(int argc, char **argv)
 
   if (qaUtility::GetInstance()->Is_minbias)
   {
+    std::cout << "Writing minbias" << std::endl;
     fo->mkdir("minbias");
     fo->cd("minbias");
 
@@ -1038,6 +671,7 @@ int main(int argc, char **argv)
 
   if (qaUtility::GetInstance()->Is_refmult)
   {
+    std::cout << "Writing refmult" << std::endl;
     fo->mkdir("refmult");
     fo->cd("refmult");
 
@@ -1074,193 +708,89 @@ int main(int argc, char **argv)
 
   if (qaUtility::GetInstance()->Is_v1)
   {
+    std::cout << "Writing v1:" << std::endl;
     fo->mkdir("v1");
     fo->cd("v1");
 
     h2_v1_Particle_pteta->Write();
 
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v1_Event_bCent.size() - 1; i++)
-    {
-      h2_v1_Event_bCent_b_Mult[i]->Write();
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p_v1_PID_bCent_pt[i][j]->Write();
-        p_v1_PID_bCent_y[i][j]->Write();
-      }
-    }
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v1_Event_mCent.size() - 1; i++)
-    {
-      h2_v1_Event_mCent_b_Mult[i]->Write();
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p_v1_PID_mCent_pt[i][j]->Write();
-        p_v1_PID_mCent_y[i][j]->Write();
-      }
-    }
-    // for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
-    // {
-    //   p3_v1_PID_b_pt_y[i]->Write();
-    // }
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v1_Event_bCent.size() - 1; i++)
-    {
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p2_v1_PID_y_pt[i][j]->Write();
-      }
-    }
+    std::cout << "\tv1(pT,y,b):" << std::endl;
     for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
     {
-      p2_v1_PID_b_pt[i]->Write();
-      p2_v1_PID_b_y[i]->Write();
+      std::cout << "\t\t[" << i << "/" << qaUtility::GetInstance()->npid << "]" << std::endl;
+      p3_v1_PID_b_pt_y[i]->Write();
     }
+    std::cout << "\tv1(pT,y,M):" << std::endl;
     for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
     {
-      p2_v1_PID_M_pt[i]->Write();
-      p2_v1_PID_M_y[i]->Write();
+      std::cout << "\t\t[" << i << "/" << qaUtility::GetInstance()->npid << "]" << std::endl;
+      p3_v1_PID_M_pt_y[i]->Write();
     }
   }
 
   if (qaUtility::GetInstance()->Is_v2)
   {
+    std::cout << "Writing v2:" << std::endl;
     fo->mkdir("v2");
     fo->cd("v2");
 
     h2_v2_Particle_pteta->Write();
 
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v2_Event_bCent.size() - 1; i++)
-    {
-      h2_v2_Event_bCent_b_Mult[i]->Write();
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p_v2_PID_bCent_pt[i][j]->Write();
-        p_v2_PID_bCent_y[i][j]->Write();
-      }
-    }
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v2_Event_mCent.size() - 1; i++)
-    {
-      h2_v2_Event_mCent_b_Mult[i]->Write();
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p_v2_PID_mCent_pt[i][j]->Write();
-        p_v2_PID_mCent_y[i][j]->Write();
-      }
-    }
-    // for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
-    // {
-    //   p3_v2_PID_b_pt_y[i]->Write();
-    // }
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v2_Event_bCent.size() - 1; i++)
-    {
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p2_v2_PID_y_pt[i][j]->Write();
-      }
-    }
+    std::cout << "\tv2(pT,y,b):" << std::endl;
     for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
     {
-      p2_v2_PID_b_pt[i]->Write();
-      p2_v2_PID_b_y[i]->Write();
+      std::cout << "\t\t[" << i << "/" << qaUtility::GetInstance()->npid << "]" << std::endl;
+      p3_v2_PID_b_pt_y[i]->Write();
     }
+    std::cout << "\tv2(pT,y,M):" << std::endl;
     for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
     {
-      p2_v2_PID_M_pt[i]->Write();
-      p2_v2_PID_M_y[i]->Write();
+      std::cout << "\t\t[" << i << "/" << qaUtility::GetInstance()->npid << "]" << std::endl;
+      p3_v2_PID_M_pt_y[i]->Write();
     }
   }
 
   if (qaUtility::GetInstance()->Is_v3)
   {
+    std::cout << "Writing v3:" << std::endl;
     fo->mkdir("v3");
     fo->cd("v3");
 
     h2_v3_Particle_pteta->Write();
 
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v3_Event_bCent.size() - 1; i++)
-    {
-      h2_v3_Event_bCent_b_Mult[i]->Write();
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p_v3_PID_bCent_pt[i][j]->Write();
-        p_v3_PID_bCent_y[i][j]->Write();
-      }
-    }
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v3_Event_mCent.size() - 1; i++)
-    {
-      h2_v3_Event_mCent_b_Mult[i]->Write();
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p_v3_PID_mCent_pt[i][j]->Write();
-        p_v3_PID_mCent_y[i][j]->Write();
-      }
-    }
-    // for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
-    // {
-    //   p3_v3_PID_b_pt_y[i]->Write();
-    // }
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v3_Event_bCent.size() - 1; i++)
-    {
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p2_v3_PID_y_pt[i][j]->Write();
-      }
-    }
+    std::cout << "\tv3(pT,y,b):" << std::endl;
     for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
     {
-      p2_v3_PID_b_pt[i]->Write();
-      p2_v3_PID_b_y[i]->Write();
+      std::cout << "\t\t[" << i << "/" << qaUtility::GetInstance()->npid << "]" << std::endl;
+      p3_v3_PID_b_pt_y[i]->Write();
     }
+    std::cout << "\tv3(pT,y,M):" << std::endl;
     for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
     {
-      p2_v3_PID_M_pt[i]->Write();
-      p2_v3_PID_M_y[i]->Write();
+      std::cout << "\t\t[" << i << "/" << qaUtility::GetInstance()->npid << "]" << std::endl;
+      p3_v3_PID_M_pt_y[i]->Write();
     }
   }
 
   if (qaUtility::GetInstance()->Is_v4)
   {
+    std::cout << "Writing v4:" << std::endl;
     fo->mkdir("v4");
     fo->cd("v4");
 
     h2_v4_Particle_pteta->Write();
 
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v4_Event_bCent.size() - 1; i++)
-    {
-      h2_v4_Event_bCent_b_Mult[i]->Write();
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p_v4_PID_bCent_pt[i][j]->Write();
-        p_v4_PID_bCent_y[i][j]->Write();
-      }
-    }
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v4_Event_mCent.size() - 1; i++)
-    {
-      h2_v4_Event_mCent_b_Mult[i]->Write();
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p_v4_PID_mCent_pt[i][j]->Write();
-        p_v4_PID_mCent_y[i][j]->Write();
-      }
-    }
-    // for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
-    // {
-    //   p3_v4_PID_b_pt_y[i]->Write();
-    // }
-    for (int i = 0; i < (int)qaUtility::GetInstance()->Cut_v4_Event_bCent.size() - 1; i++)
-    {
-      for (int j = 0; j < qaUtility::GetInstance()->npid; j++)
-      {
-        p2_v4_PID_y_pt[i][j]->Write();
-      }
-    }
+    std::cout << "\tv4(pT,y,b):" << std::endl;
     for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
     {
-      p2_v4_PID_b_pt[i]->Write();
-      p2_v4_PID_b_y[i]->Write();
+      std::cout << "\t\t[" << i << "/" << qaUtility::GetInstance()->npid << "]" << std::endl;
+      p3_v4_PID_b_pt_y[i]->Write();
     }
+    std::cout << "\tv4(pT,y,M):" << std::endl;
     for (int i = 0; i < qaUtility::GetInstance()->npid; i++)
     {
-      p2_v4_PID_M_pt[i]->Write();
-      p2_v4_PID_M_y[i]->Write();
+      std::cout << "\t\t[" << i << "/" << qaUtility::GetInstance()->npid << "]" << std::endl;
+      p3_v4_PID_M_pt_y[i]->Write();
     }
   }
 

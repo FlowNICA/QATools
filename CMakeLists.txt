@@ -65,7 +65,6 @@ set(QATOOLS_LIBRARY_h_files
   ${CMAKE_CURRENT_SOURCE_DIR}/format/qaParticleLight.h
   ${CMAKE_CURRENT_SOURCE_DIR}/format/qaEvent.h
   ${CMAKE_CURRENT_SOURCE_DIR}/readers/qaReader_smash_root.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/readers/qaReader_epos4_root.h
   ${CMAKE_CURRENT_SOURCE_DIR}/readers/qaReader_mcpico.h
   ${CMAKE_CURRENT_SOURCE_DIR}/readers/qaReader_manager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/utility/Utility.h
@@ -76,7 +75,6 @@ set(QATOOLS_LIBRARY_cxx_files
   ${CMAKE_CURRENT_SOURCE_DIR}/format/qaParticleLight.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/format/qaEvent.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/readers/qaReader_smash_root.cxx
-  ${CMAKE_CURRENT_SOURCE_DIR}/readers/qaReader_epos4_root.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/readers/qaReader_mcpico.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/readers/qaReader_manager.cxx
   ${CMAKE_CURRENT_SOURCE_DIR}/utility/Utility.cxx
