@@ -12,6 +12,7 @@
 #pragma link C++ class qaParticleLight+;
 #pragma link C++ class qaEvent+;
 #pragma link C++ class qaReader_smash_root+;
+#pragma link C++ class qaReader_epos4_root+;
 #pragma link C++ class qaReader_mcpico+;
 #ifdef _MCINI_
 #pragma link C++ class qaReader_mcini+;
