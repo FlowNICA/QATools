@@ -150,11 +150,14 @@ if( GIT_TAG_VERSION_ERROR_CODE )
   set(GIT_TAG_VERSION 0.0)
 endif()
 
-set_target_properties (qaTools 
-  PROPERTIES 
+set_target_properties (qaTools
+  PROPERTIES
   VERSION ${GIT_TAG_VERSION} SOVERSION ${GIT_BRANCH}-${GIT_COMMIT_HASH}
 )
 
-#---Compile main executable
+#---Compile main executables
 add_executable(qaProcess "${CMAKE_CURRENT_SOURCE_DIR}/bin/main.cpp")
 target_link_libraries(qaProcess qaTools)
+
+add_executable(calcv02 "${CMAKE_CURRENT_SOURCE_DIR}/bin/v02.cpp")
+target_link_libraries(calcv02 qaTools)
