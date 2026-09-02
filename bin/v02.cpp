@@ -101,10 +101,21 @@ int main(int argc, char **argv)
 
   TFile *fo = new TFile(oFileName, "recreate");
 
+  v02KinematicCuts v02cuts;
+  v02cuts.withBcut({{4.6, 9.2}})
+      .withMcut({{0, 5000}})
+      .withAcutEta({1.5, 2.})
+      .withBcutEta({-2., -1.5})
+      .withAcutPt({0.4, 2.0})
+      .withBcutPt({0.4, 2.0})
+      .withCcutY({-0.5, 0.5})
+      .withPDGcut(2212)
+  ;
+
   // pt-y plots for A, B, C sub-events
-  TH2D *h2_v02_ParticleA_PID_ptY[qaUtility::GetInstance()->npid];
-  TH2D *h2_v02_ParticleB_PID_ptY[qaUtility::GetInstance()->npid];
-  TH2D *h2_v02_ParticleC_PID_ptY[qaUtility::GetInstance()->npid];
+  TH2D *h2_v02_ParticleA_ptY;
+  TH2D *h2_v02_ParticleB_ptY;
+  TH2D *h2_v02_ParticleC_ptY;
 
 
 
@@ -157,6 +168,7 @@ int main(int argc, char **argv)
 
   qaEvent *event = nullptr;
   qaParticle *particle = nullptr;
+  int Nparticles;
 
   Long64_t Absolute_counter = 0;
   Int_t ipid;

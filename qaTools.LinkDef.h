@@ -25,5 +25,6 @@
 #endif
 #pragma link C++ class qaReader_manager+;
 #pragma link C++ class qaUtility+;
+#pragma link C++ class v02KinematicCuts+;
 
 #endif
