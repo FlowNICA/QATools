@@ -223,31 +223,4 @@ public:
   ClassDef(qaUtility, 0);
 }; // class qaUtility
 
-class v02KinematicCuts{
-public:
-  v02KinematicCuts();
-  virtual ~v02KinematicCuts();
-
-  v02KinematicCuts& withBcut(const std::vector<std::pair<double, double>> a) { _b_ranges = a; return *this; }
-  v02KinematicCuts& withMcut(const std::vector<std::pair<int, int>> a) { _M_ranges = a; return *this; }
-  v02KinematicCuts& withAcutEta(const std::pair<double, double> a) { _A_eta_ranges = a; return *this; }
-  v02KinematicCuts& withBcutEta(const std::pair<double, double> a) { _B_eta_ranges = a; return *this; }
-  v02KinematicCuts& withAcutPt(const std::pair<double, double> a) { _A_pt_ranges = a; return *this; }
-  v02KinematicCuts& withBcutPt(const std::pair<double, double> a) { _B_pt_ranges = a; return *this; }
-  v02KinematicCuts& withCcutY(const std::pair<double, double> a) { _C_y_ranges = a; return *this; }
-  v02KinematicCuts& withPDGcut(const int a) { _pdg_cut = a; return *this; }
-
-private:
-  std::vector<std::pair<double, double>> _b_ranges;
-  std::vector<std::pair<int, int>> _M_ranges;
-  std::pair<double, double> _A_eta_ranges;
-  std::pair<double, double> _A_pt_ranges;
-  std::pair<double, double> _B_eta_ranges;
-  std::pair<double, double> _B_pt_ranges;
-  std::pair<double, double> _C_y_ranges;
-  int _pdg_cut;
-
-  ClassDef(v02KinematicCuts, 0);
-};
-
 #endif

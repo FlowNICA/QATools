@@ -1228,21 +1228,3 @@ Int_t qaUtility::GetCentMultBin(Int_t mult, std::vector<Float_t> vcent)
 
   return -1;
 }
-
-
-
-v02KinematicCuts::v02KinematicCuts() : _b_ranges({{0., 20.}}),
-                                       _M_ranges({{0, 5000}}),
-                                       _A_eta_ranges({1.5, 2.}),
-                                       _B_eta_ranges({-2., -1.5}),
-                                       _A_pt_ranges({0.4, 1.5}),
-                                       _B_pt_ranges({0.4, 1.5}),
-                                       _C_y_ranges({-0.5, 0.5}),
-                                       _pdg_cut(2212)
-{
-}
-
-v02KinematicCuts::~v02KinematicCuts(){
-  _b_ranges.clear();
-  _M_ranges.clear();
-}
